@@ -14,7 +14,7 @@ public class Review extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String reviewnum;
+    private Long reviewnum;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Movie movie;
