@@ -7,6 +7,7 @@ import org.moremore.mreview.entity.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -18,7 +19,7 @@ public class ReviewRepositoryTests {
     @Test
     public void insertMovieReviews() {
 
-        IntStream.rangeClosed(1, 100).forEach(i -> {
+        IntStream.rangeClosed(1, 200).forEach(i -> {
             Long mno = ((long)(Math.random() * 100) + 1);
 
             Long mid = ((long)(Math.random() * 100) + 1);
@@ -34,6 +35,21 @@ public class ReviewRepositoryTests {
                     .build();
 
             reviewRepository.save(review);
+        });
+    }
+
+    @Test
+    public void testGetMovieReviews() {
+        Movie movie = Movie.builder().mno(92L).build();
+
+        List<Review> result = reviewRepository.findByMovie(movie);
+
+        result.forEach(movieReview -> {
+            System.out.println(movieReview.getReviewnum());
+            System.out.println("\t" + movieReview.getGrade());
+            System.out.println("\t" + movieReview.getText());
+            System.out.println("\t" + movieReview.getMember().getEmail());
+            System.out.println("============================");
         });
     }
 }
